@@ -9,6 +9,7 @@ import {
   View,
   CameraRoll,
   TouchableOpacity,
+  Image,
 } from 'react-native';
 import { RNCamera } from 'react-native-camera';
 
@@ -25,10 +26,14 @@ export default class BadInstagramCloneApp extends Component {
           flashMode={RNCamera.Constants.FlashMode.off}
           type={RNCamera.Constants.Type.back}
           zoom={0.3}
-        />
+          width={512}
+          height={512}
+        >
+          <Image style={{opacity: .2}} source={require('./image.jpg')} />
+        </RNCamera>
         <View style={{ flex: 0, flexDirection: 'row', justifyContent: 'center' }}>
           <TouchableOpacity onPress={this.takePicture.bind(this)} style={styles.capture}>
-            <Text style={{ fontSize: 14 }}> SNAP </Text>
+            <Text style={{ fontSize: 14 }}> 撮影 </Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -56,7 +61,8 @@ const styles = StyleSheet.create({
     backgroundColor: 'black',
   },
   preview: {
-    flex: 1,
+    width: 512,
+    height: 512,
     justifyContent: 'flex-end',
     alignItems: 'center',
   },
