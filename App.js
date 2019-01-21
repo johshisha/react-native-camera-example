@@ -29,7 +29,7 @@ export default class BadInstagramCloneApp extends Component {
           width={512}
           height={512}
         >
-          <Image style={{opacity: .2}} source={require('./image.jpg')} />
+          <Image style={{opacity: .5}} source={require('./image.jpg')} />
         </RNCamera>
         <View style={{ flex: 0, flexDirection: 'row', justifyContent: 'center' }}>
           <TouchableOpacity onPress={this.takePicture.bind(this)} style={styles.capture}>
