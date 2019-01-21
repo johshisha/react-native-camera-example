@@ -1,9 +1,20 @@
 import React, { Component } from 'react';
-import { AppRegistry, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import {
+  Alert,
+  Button,
+  Platform,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+  CameraRoll,
+  TouchableOpacity,
+} from 'react-native';
 import { RNCamera } from 'react-native-camera';
 
 export default class BadInstagramCloneApp extends Component {
   render() {
+    console.log('render ===')
     return (
       <View style={styles.container}>
         <RNCamera
@@ -11,13 +22,9 @@ export default class BadInstagramCloneApp extends Component {
             this.camera = ref;
           }}
           style={styles.preview}
+          flashMode={RNCamera.Constants.FlashMode.off}
           type={RNCamera.Constants.Type.back}
-          flashMode={RNCamera.Constants.FlashMode.on}
-          permissionDialogTitle={'Permission to use camera'}
-          permissionDialogMessage={'We need your permission to use your camera phone'}
-          onGoogleVisionBarcodesDetected={({ barcodes }) => {
-            console.log(barcodes);
-          }}
+          zoom={0.3}
         />
         <View style={{ flex: 0, flexDirection: 'row', justifyContent: 'center' }}>
           <TouchableOpacity onPress={this.takePicture.bind(this)} style={styles.capture}>
@@ -30,8 +37,13 @@ export default class BadInstagramCloneApp extends Component {
 
   takePicture = async function() {
     if (this.camera) {
-      const options = { quality: 0.5, base64: true };
-      const data = await this.camera.takePictureAsync(options);
+      const options = { quality: 0.5 };
+      const data = await this.camera.takePictureAsync(options).then(data => {
+        console.log('====================')
+        console.log(data);
+        CameraRoll.saveToCameraRoll(data.uri);
+        console.log('====================')
+      });
       console.log(data.uri);
     }
   };
